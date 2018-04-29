@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <title>Document</title>
+    <style>
+        body{padding-top:100px;height:3000px;}
+        header{position:fixed;top:0;left:0;width:100%;height:100px;background: gray;transition:top 0.2s ease-in-out;}
+        .navup{top:-100px;}/*스크롤시 헤더 높이와 같게 - 추가되는 클래스, 단순히 트랜지션으로 위치 이동을 제어하는 것보다 트랜스폼(transform)과 트랜지션의 조합이 다양한 기기에서 버벅임없는 자연스러운 효과를 얻을 수 있다.*/
+    </style>
+</head>
+<body>
+    
+    <header></header>
+    <main></main>
+    <footer></footer>
+
+    <script>
+       var didScroll; 
+       var lastScrollTop = 0; 
+       var delta = 5; /* 동작의 구현이 시작되는 위치 */
+       var navbarHeight = $('header').outerHeight(); /* 영향을 받을 요소를 선택 */
+       
+       $(window).scroll(function(event){ 
+           
+           didScroll = true; 
+           
+        }); 
+       
+       setInterval(function() { 
+           
+           if (didScroll) { 
+               
+               hasScrolled(); 
+               didScroll = false; } 
+            
+            }, 250); 
+           
+           function hasScrolled() { 
+               
+               var st = $(this).scrollTop(); /* 접근하기 쉽게 현재 스크롤의 위치를 저장 */
+            
+            if(Math.abs(lastScrollTop - st) <= delta) /* 설정한 델타 값보다 더 스크롤 되었는지 확인 */
+            
+                return; 
+            
+            if (st > lastScrollTop && st > navbarHeight){  /* 헤더의 높이보다 더 스크롤 되었는지 확인하고, 스크롤의 방향이 위인지 아래인지 확인한다. */
+                
+                $('header').removeClass('nav-down').addClass('navup'); 
+                
+            } else {
+                
+                if(st + $(window).height() < $(document).height()) { 
+                    
+                    $('header').removeClass('navup').addClass('nav-down'); 
+                    
+                } 
+            } 
+            
+            lastScrollTop = st; } /* 현재 스크롤의 위치를 저장함 */
+
+
+    </script>
+
+</body>
+</html>
