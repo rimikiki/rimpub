@@ -19,18 +19,21 @@
     <footer></footer>
 
     <script>
+
+        
        var didScroll; 
        var lastScrollTop = 0; 
        var delta = 5; /* 동작의 구현이 시작되는 위치 */
+       
        var navbarHeight = $('header').outerHeight(); /* 영향을 받을 요소를 선택 */
        
-       $(window).scroll(function(event){ 
+       $(window).scroll(function(event){ /* 스크롤시에 스크롤이 되었음을 알림 */
            
            didScroll = true; 
            
         }); 
        
-       setInterval(function() { 
+       setInterval(function() { /* hasScroll() 스크롤을 실행하고 didScroll을 재설정함 */
            
            if (didScroll) { 
                
@@ -39,28 +42,29 @@
             
             }, 250); 
            
-           function hasScrolled() { 
+           function hasScrolled() { /* 동작을 구현 */
                
                var st = $(this).scrollTop(); /* 접근하기 쉽게 현재 스크롤의 위치를 저장 */
             
-            if(Math.abs(lastScrollTop - st) <= delta) /* 설정한 델타 값보다 더 스크롤 되었는지 확인 */
-            
-                return; 
-            
-            if (st > lastScrollTop && st > navbarHeight){  /* 헤더의 높이보다 더 스크롤 되었는지 확인하고, 스크롤의 방향이 위인지 아래인지 확인한다. */
+                if(Math.abs(lastScrollTop - st) <= delta) /* 설정한 델타 값보다 더 스크롤 되었는지 확인 */
                 
-                $('header').removeClass('nav-down').addClass('navup'); 
+                    return; 
                 
-            } else {
-                
-                if(st + $(window).height() < $(document).height()) { 
+                if (st > lastScrollTop && st > navbarHeight){  /* 헤더의 높이보다 더 스크롤 되었는지 확인하고, 스크롤의 방향이 위인지 아래인지 확인한다. */
                     
-                    $('header').removeClass('navup').addClass('nav-down'); 
+                    $('header').removeClass('nav-down').addClass('navup'); 
                     
+                } else {
+                    
+                    if(st + $(window).height() < $(document).height()) { 
+                        
+                        $('header').removeClass('navup').addClass('nav-down'); 
+                        
+                    } 
                 } 
-            } 
-            
-            lastScrollTop = st; } /* 현재 스크롤의 위치를 저장함 */
+                
+                lastScrollTop = st; 
+            } /* 현재 스크롤의 위치를 저장함 */
 
 
     </script>
